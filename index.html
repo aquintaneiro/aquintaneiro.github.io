@@ -117,10 +117,38 @@ video {
     <h1>Welcome</h1>
     <p>I'm Alexandra and this is my video project for Coldplay, I'm 17 and I'm studing at <a href="https://agora.xtec.cat/ies-pompeu-fabra-martorell/"> Pompeu Fabra High School. </a></p>
     <p> In this video you can find how I designed a bracelet that creates energy using sweat thanks to biofuel cells:</p>
-</div>  <video class= "lazy video" controls poster="" data-scr= /videos"https/videoa5.mp4">
-        Your browser does not support the video tag.
+</div>  <video class= "lazy video" controls poster="" data-scr= /videos"/videoa5.mp4" width="600" height="400">
+        YYour browser does not support the video tag.
       </video>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+  const lazyVideos = document.querySelectorAll(".lazy-video");
 
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const video = entry.target;
+          if (video.dataset.src) {
+            video.src = video.dataset.src; // Assigna el src al vídeo
+            video.removeAttribute("data-src"); // Elimina l'atribut data-src
+          }
+          observer.unobserve(video); // Deixa d'observar aquest vídeo
+        }
+      });
+    });
+
+    lazyVideos.forEach(video => observer.observe(video)); // Observa tots els vídeos
+  } else {
+    // Fallback per a navegadors antics
+    lazyVideos.forEach(video => {
+      if (video.dataset.src) {
+        video.src = video.dataset.src; // Assigna el src al vídeo
+      }
+    });
+  }
+});
+    <script>
 <!-- Scripts necessaris -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
